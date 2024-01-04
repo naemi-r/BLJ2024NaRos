@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Metadaten für Zeichenkodierung und Darstellung auf verschiedenen Geräten -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pfannkuchen Rezept</title>
+
+    <!-- Seitentitel -->
+    <title>PANCAKE RECIPE</title>
+
+    <!-- Styling mit CSS -->
     <style>
-    
-</body>
         body {
-            font-family: Arial, sans-serif;
+            font-family: cursive;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
+            background-color: #cfe4ff; /* Hintergrundfarbe in hellblau ändern */
         }
 
         header {
             background-color: #ffffff;
-            color: #139bda;
+            color: #83b9ff;
             text-align: center;
             padding: 1em;
         }
 
         main {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
@@ -41,7 +45,7 @@
         }
 
         h2 {
-            color: #139bda;
+            color: #83b9ff;
         }
 
         ul {
@@ -52,55 +56,157 @@
         li {
             margin-bottom: 10px;
         }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 25%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        nav {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-right: 30px;
+            text-decoration: none;
+            color: #83b9ff;
+            font-weight: bold;
+        }
     </style>
+
+    <!-- JavaScript-Bibliothek für PDF-Erstellung -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
+
 <body>
-    <label for="numberInput">Für wie viele Personen möchtest du backen?</label>
-    <input type="number" id="numberInput" name="numberInput" min="1" max="10">
-    <header>
-        <h1>Pfannkuchen Rezept</h1>
-    </header>
-
+    <!-- Hauptinhalt der Seite -->
     <main>
-        <section>
-            <h2>Zutaten</h2>
-            <ul>
-                <li>2 🥚Eier</li>
-                <li>200 ml 🥛Milch</li>
-                <li>1 Prise 🫙Zucker</li>
-                <li>1 Prise 🧂Salz</li>
-                <li>200 g Mehl</li>
-                <li>60 ml 💧</li>
-                <li>Etwas Speiseöl zum Ausbacken</li>
-            </ul>
+        <!-- Kopfbereich mit Rezepttitel -->
+        <header>
+            <h1>PANCAKE RECIPE</h1>
+        </header>
+
+        <!-- Navigationsleiste mit Verknüpfungen zu Abschnitten -->
+        <nav>
+            <a href="#ingredients">Ingredients</a>
+            <a href="#instructions">Instructions</a>
+            <a href="#pictures">Pictures</a>
+            <a href="#download">Download Recipe</a>
+        </nav>
+
+        <!-- Abschnitt mit den Zutaten -->
+        <section id="ingredients">
+
+            <h2>Ingredients</h2>
+            <table>
+                <!-- Styling für die Schriftart der Tabelle -->
+                <style>
+                    body {
+                        font-family: cursive;
+                    }
+                </style>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Food</th>
+                </tr>
+                <tr>
+                    <td>200 ml</td>
+                    <td>🥛Milk</td>
+                </tr>
+                <tr>
+                    <td>1 Pinch</td>
+                    <td>🫙Sugar</td>
+                </tr>
+                <tr>
+                    <td>1 Pinch</td>
+                    <td>🧂Salt</td>
+                </tr>
+                <tr>
+                    <td>200 g</td>
+                    <td>🍚Flour</td>
+                </tr>
+                <tr>
+                    <td>60 ml</td>
+                    <td>💧Water</td>
+                </tr>
+            </table>
+            <p>Some cooking oil for frying🥞</p>
         </section>
 
-        <section>
-            <h2>Anleitung</h2>
-            <p>Eier mit Milch, Zucker, Salz, Mehl und Mineralwasser zu einem glatten Teig rühren.
-             <div><img src="https://thomassixt.de/wp-content/uploads/2018/11/pfannkuchen-teig-fertig-laeuft-vom-besen.jpg" alt="Bild 1"></div>  
-
-                
-             <p>Bei Bedarf noch etwas Mehl oder Wasser hinzugeben, um die gewünschte Konsistenz zu erreichen.</p>   
-             <p>Eine beschichtete Pfanne mit etwas Speiseöl erhitzen. Mit einer Schöpfkelle eine Kelle Teig in die Pfanne geben und die Pfanne kurz in jede Richtung schwenken um den Teig zu verteilen.
-                Den Pfannkuchen von beiden Seiten etwa 1-2 Minuten bräunlich ausbacken. Warm genießen.</p>
+        <!-- Abschnitt mit den Anweisungen -->
+        <section id="instructions">
+            <h2>Instructions</h2>
+            <p>
+                <!-- Kommentar mit Anmerkungen zu HTML-Befehlen und Tipps -->
+                <!-- Credits und Hinweise für das Erstellen von HTML-Dateien für das WWW -->
+                <!-- Verlinkung zu weiteren Informationen über Dateinamenkonventionen und Farbdefinition in HTML -->
+                Erläuterung: Kommentare werden durch die Zeichenfolge <!-- eingeleitet. Dahinter folgt beliebig langer Kommentartext. Innerhalb des Kommentartextes können Sie auch HTML-Befehle erwähnen, ohne diese maskieren zu müssen...
+            </p>
         </section>
 
-        <section>
-            <h2>Bilder</h2>
-            <div>
-                <!-- Platzhalter für mindestens 8 Bilder -->
-                <img src="placeholder.jpg" alt="Bild 1">
-                <img src="placeholder.jpg" alt="Bild 2">
-                <img src="placeholder.jpg" alt="Bild 3">
-                <img src="placeholder.jpg" alt="Bild 4">
-                <img src="placeholder.jpg" alt="Bild 5">
-                <img src="placeholder.jpg" alt="Bild 6">
-                <img src="placeholder.jpg" alt="Bild 7">
-                <img src="placeholder.jpg" alt="Bild 8">
-            </div>
+        <!-- Abschnitt mit Bildern -->
+        <section id="pictures">
+            <h2>Pictures</h2>
+            <!-- Styling für die Bildgröße -->
+            <style>
+                img {
+                    max-width: 25%; /* Bildgröße auf 50% der ursprünglichen Breite begrenzen */
+                    height: auto;
+                    margin-bottom: 20px;
+                }
+            </style>
+            <img src="https://biancazapatka.com/wp-content/uploads/2020/06/vegan-pancakes-recipe.jpg">
+            <img src="https://emmikochteinfach.de/wp-content/uploads/2023/01/780-Pancakes-in-der-Pfanne-wenden-1.jpg">
+        </section>
+
+        <!-- Abschnitt zum Herunterladen des Rezepts im PDF-Format -->
+        <section id="download">
+            <h2>Download Recipe</h2>
+            <p>You can download the recipe in PDF format for future reference.</p>
+            <button onclick="downloadPDF()">Download PDF</button>
         </section>
     </main>
 
+    <!-- JavaScript-Code für die Navigation und den PDF-Download -->
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href').substring(1);
+
+                // Ziel-Element abrufen und zu der Position scrollen
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - document.querySelector('header').offsetHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // JavaScript-Funktion für den PDF-Download
+        function downloadPDF() {
+            // Hier kannst du den JavaScript-Code für den PDF-Download implementieren.
+            // Zum Beispiel: alert("Implementing PDF download functionality!");
+            alert("Implementiere die PDF-Download-Funktion!");
+        }
+    </script>
 </body>
+
 </html>
