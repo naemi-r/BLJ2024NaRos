@@ -113,6 +113,7 @@
 
             <h2>Ingredients</h2>
             <table>
+
                 <!-- Styling für die Schriftart der Tabelle -->
                 <style>
                     body {
@@ -129,18 +130,18 @@
                 </tr>
                 <tr>
                     <td>1 EL</td>
-                    <td>🥄baking powder</td>
+                    <td>🥄Baking powder</td>
                 </tr>
                 <tr>
-                    <td>1/4 TL</td>
+                    <td>¼ TL</td>
                     <td>🧂Salt</td>
                 </tr>
                 <tr>
-                    <td>1.5 EL</td>
+                    <td>1 ½  EL</td>
                     <td>🫙Sugar</td>
                 </tr>
                 <tr>
-                    <td>1/2 Packet</td>
+                    <td>½ Packet</td>
                     <td>🫙Vanilla sugar</td>
                 </tr>
                 <tr>
@@ -211,29 +212,22 @@
     </main>
 
     <!-- JavaScript-Code für die Navigation und den PDF-Download -->
+    <button onclick="downloadPDF()">PDF herunterladen</button>
+
     <script>
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href').substring(1);
-
-                // Ziel-Element abrufen und zu der Position scrollen
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - document.querySelector('header').offsetHeight,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // JavaScript-Funktion für den PDF-Download
         function downloadPDF() {
-            // Hier kannst du den JavaScript-Code für den PDF-Download implementieren.
-            // Zum Beispiel: alert("Implementing PDF download functionality!");
-            alert("Implementiere die PDF-Download-Funktion!");
+            // Erstelle einen Link-Element
+            var link = document.createElement('a');
+            // Setze die HREF auf den Pfad deiner PDF-Datei
+            link.href = 'pancake_recipe_to_download.pdf';
+            // Setze den Download-Attribut auf den gewünschten Dateinamen
+            link.download = 'pancake_recipe_to_download.pdf';
+            // Füge den Link zum Dokument hinzu
+            document.body.appendChild(link);
+            // Klicke den Link an, um den Download zu starten
+            link.click();
+            // Entferne den Link aus dem Dokument, um das Dokument sauber zu halten
+            document.body.removeChild(link);
         }
     </script>
 </body>
