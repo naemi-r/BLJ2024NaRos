@@ -89,7 +89,7 @@
     </style>
 
     <!-- JavaScript-Bibliothek für PDF-Erstellung -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>-->
 </head>
 
 <body>
@@ -105,6 +105,7 @@
             <a href="#ingredients">Ingredients</a>
             <a href="#instructions">Instructions</a>
             <a href="#pictures">Pictures</a>
+            <a href="#impressum">Impressum</a>
             <a href="#download">Download Recipe</a>
         </nav>
 
@@ -192,7 +193,7 @@
             <!-- Styling für die Bildgröße -->
             <style>
                 img {
-                    max-width: 18%; /* Bildgröße auf 50% der ursprünglichen Breite begrenzen */
+                    max-width: 18%; /* Bildgröße auf 18% der ursprünglichen Breite begrenzen */
                     height: auto;
                     margin-bottom: 20px;
                 }
@@ -201,7 +202,15 @@
             <img src="C:\Users\naemi\BLJ2024NaRos\HTML\2024\KW-01\IMG-20240104-WA0006.jpg">
             <img src="C:\Users\naemi\BLJ2024NaRos\HTML\2024\KW-01\IMG-20240104-WA0003.jpg">
             <img src="C:\Users\naemi\BLJ2024NaRos\HTML\2024\KW-01\IMG-20240104-WA0005.jpg">
-        </section>
+
+            <!--Impressum-->
+            <section id="impressum">
+            <h2>Impressum</h2>
+            <p>Noser Young AG</p>
+            <p>Hero street 12</p>
+            <p>8040 Zurich</p>
+            <p>Swizerland</p>
+            </section>
 
         <!-- Abschnitt zum Herunterladen des Rezepts im PDF-Format -->
         <section id="download">
@@ -212,7 +221,6 @@
     </main>
 
     <!-- JavaScript-Code für die Navigation und den PDF-Download -->
-    <button onclick="downloadPDF()">PDF herunterladen</button>
 
     <script>
         function downloadPDF() {
@@ -229,7 +237,10 @@
             // Entferne den Link aus dem Dokument, um das Dokument sauber zu halten
             document.body.removeChild(link);
         }
+        
     </script>
+    </section>
+    
 </body>
 
 </html>
