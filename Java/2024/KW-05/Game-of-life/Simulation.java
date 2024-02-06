@@ -22,7 +22,7 @@ public class Simulation extends Thread {
    * A constructor.
    * 
    * @param speed     An int value that controls the speed of the simulation.
-   *                  Lower value equals faster simulation speed.
+   *                  Lower value equals faster <simulation speed.
    * @param wrapField A boolean value that toggles whether the simulation field is
    *                  finite in size or wraps around itself.
    */
@@ -84,12 +84,73 @@ public class Simulation extends Thread {
        * implemented). It might be a good start to traverse the entire simulation
        * field, which allows you to look at the values contained in each cell.
        */
+      private void startSimulation() {
+        while (running) {
+            int[][] newField = new int[field.length][field[0].length];
+    
+            for (int x = 0; x < field.length; x++) {
+                for (int y = 0; y < field[0].length; y++) {
+                    int neighbors = wrapField ? getWrappedNeighbourCount(x, y) : getNeighbourCount(x, y);
+    
+                    // Implementing Conway's Game of Life rules
+                    if (field[x][y] == 1) {
+                        // Cell is alive
+                        if (neighbors < 2 || neighbors > 3) {
+                            // Cell dies due to underpopulation or overpopulation
+                            newField[x][y] = 0;
+                        } else {
+                            // Cell survives
+                            newField[x][y] = 1;
+                        }
+                    } else {
+                        // Cell is dead
+                        if (neighbors == 3) {
+                            // Dead cell becomes alive due to reproduction
+                            newField[x][y] = 1;
+                        }
+                    }
+                }
+            }
+    
+            // Stop the simulation if the current and next generation are the same
+            if (Arrays.deepEquals(field, newField)) {
+                stopSimulation();
+            }
+    
+            pCS.firePropertyChange("field", field, newField);
+            field = newField;
+            try {
+                Thread.sleep(speed);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
 
       /*
        * TODO: Stop the simulation if the current and next generation are the same. In
        * order to do that, call the method stopSimulation() under the right
        * circumstances.
        */
+      private int getNeighbourCount(int x, int y) {
+        int neighbourCount = 0;
+    
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (i == x && j == y) {
+                    continue; // Skip the current cell
+                }
+    
+                if (coordsInBounds(i, j) && field[i][j] == 1) {
+                    neighbourCount++;
+                }
+            }
+        }
+    
+        return neighbourCount;
+    }
+    
 
       pCS.firePropertyChange("field", field, newField);
       field = newField;
@@ -121,6 +182,10 @@ public class Simulation extends Thread {
      * are up to 8 living cells next to the cell in question, according to the
      * comment above.
      */
+    private boolean coordsInBounds(int x, int y) {
+      return x >= 0 && x < field.length && y >= 0 && y < field[0].length;
+  }
+  
 
     return neighbourCount;
   }
@@ -141,6 +206,27 @@ public class Simulation extends Thread {
      * i.e. neither the x or y coordinate is negative or greater than the width or
      * height of the simulation field.
      */
+    private int getWrappedNeighbourCount(int x, int y) {
+      int neighbourCount = 0;
+  
+      for (int i = x - 1; i <= x + 1; i++) {
+          for (int j = y - 1; j <= y + 1; j++) {
+              if (i == x && j == y) {
+                  continue; // Skip the current cell
+              }
+  
+              int wrappedX = (i + field.length) % field.length;
+              int wrappedY = (j + field[0].length) % field[0].length;
+  
+              if (field[wrappedX][wrappedY] == 1) {
+                  neighbourCount++;
+              }
+          }
+      }
+  
+      return neighbourCount;
+  }
+  
 
     return false;
   }
