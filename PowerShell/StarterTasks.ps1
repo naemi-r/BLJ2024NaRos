@@ -29,10 +29,9 @@ $dreidimensionalesArray = @(
 # Wie funktionieren bekannte Kontrollstrukturen? (If/Else, Switch, While, DoWhile, For, ForEach)
 
 #If/Else
-# Benutzereingabe abfragen
+
 $zahl = Read-Host "Gib eine Zahl ein"
 
-# Die eingegebene Zahl überprüfen
 if ($zahl -eq 0) {
     Write-Host "Die Zahl ist nicht gülltig"
 } elseif ($zahl -ne 0) {
@@ -43,23 +42,79 @@ if ($zahl -eq 0) {
 
 
 #Switch
-Switch (<test-expression>)
+$zahl = 3
+Switch ($zahl)
 {
-    <result1-to-be-matched> {<action>}
-    <result2-to-be-matched> {<action>}
+    3 {"Hallo Welt!"}
+    Default {"Wert unbekannt"}
+}
+
+#While
+$var = 0
+while($var -lt 30)
+ {
+    Write-Host "Nummer: $var"
+    $var++
+ }
+
+#DoWhile
+$var = 35
+do
+ {
+    Write-Host "Nummer: $var"
+    $var++
+ }while($var -lt 30)
+
+#For
+for($i=1000; $i -lt 2000; $i++)
+{
+    $i
+}
+
+#ForEach
+$farben = @("Rot", "Grün", "Blau", "Gelb")
+
+foreach ($farbe in $farben) {
+    Write-Host "Die aktuelle Farbe ist: $farbe"
 }
 
 # Wie vergleiche ich Dinge -> Operators (AND, OR, NOT, ==, <, >, <=, >=)
+AND --> -and
+OR --> -or
+NOT --> -ne
+== --> -eq
+< --> -gt
+> --> -lt
+<= --> -ge
+>= --> -le
 
 # ---Bash like tasks---
 # Display the current date and time
-# Display a list of all the files in the current directory
-# Display a list of all the files in a specific directory
-# Display the contents of a file
-# Create a new folder
-# Create a new file
-# Copy a file to a different location
-# Rename a file
-# Delete a file
-# Create a new text file and append some text to it
+Get-Date
 
+# Display a list of all the files in the current directory
+ls
+
+# Display a list of all the files in a specific directory
+ls C:\Users\naemi\BLJ2024NaRos\PowerShell
+
+# Display the contents of a file
+cat C:\Users\naemi\BLJ2024NaRos\PowerShell\Hallo_Welt.txt
+
+# Create a new folder
+mkdir foldername
+
+# Create a new file
+New-Item -Name "filename.txt" -ItemType File
+ 
+# Copy a file to a different location
+Copy-Item -Path .\filename.txt -Destination .\foldername\
+ 
+# Rename a file
+Rename-Item -Path .\filename.txt -NewName "file_name.txt"
+ 
+# Delete a file
+Remove-Item -Path .\file_name.txt
+ 
+# Create a new text file and append some text to it
+echo "text" >> file_name.txt
