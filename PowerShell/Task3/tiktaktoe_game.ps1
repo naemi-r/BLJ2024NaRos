@@ -1,49 +1,62 @@
-$board = @( ('1','2','3'),
-            ('4','5','6'),
-            ('7','8','9'))
+$board = @( ('.','.','.'),
+            ('.','.','.'),
+            ('.','.','.'))
  
  
-$playerOneSymbol = 'X'
-$playerTwoSymbol = 'O'
+$global:playerOneSymbol = 'X'
+$global:playerTwoSymbol = 'O'
+$global:currentPlayer = $global:playerOneSymbol
  
-function Run-Game(){
- Show-Board
-}
+ 
+ 
+   
  
 function Get-Winner(){
  
 }
  
-function Insert-Tile(){
+function Insert-Tile($row, $col){
  
+$board[$row][$col] = $currentPlayer
 }
  
-function Show-Board(){
-Write-Host "-------------"
-Write-Host "|"$board[0][0]"|"$board[0][1]"|"$board[0][2]"|"
-Write-Host "-------------"
-Write-Host "|"$board[1][0]"|"$board[1][1]"|"$board[1][2]"|"
-Write-Host "-------------"
-Write-Host "|"$board[2][0]"|"$board[2][1]"|"$board[2][2]"|"
-Write-Host "-------------"
+function  Show-Board(){
+   
+ Write-Host "-----------"
+ Write-Host "|"$board[0][0]"|"$board[0][1]"|"$board[0][2]"|"
+ Write-Host "|"$board[1][0]"|"$board[1][1]"|"$board[1][2]"|"
+ Write-Host "|"$board[2][0]"|"$board[2][1]"|"$board[2][2]"|"
+ Write-Host "-----------"
+ 
+ 
 }
  
 function Switch-Player(){
-
-    for ($i = 0; $i -lt 4; $i++)
-    {
-        if($i % 2 -eq 1)
-        {
-            Write-Host "X:" 
-        }
-        $user = Read-Host "gebe eine Zahl ein um dort dein Feld zu markieren"
-        else {
-            Write-Host "O" 
-        }
-        $user = Read-Host "gebe eine Zahl ein um dort dein Feld zu markieren"
+ 
+    if ($global:currentPlayer -eq $global:playerOneSymbol) {
+        $global:currentPlayer = $global:playerTwoSymbol
+ 
+    }      
+    else {
+        $global:currentPlayer = $global:playerOneSymbol
+   
     }
 }
+function Run-Game(){
+    #Insert-Tile $board $row $col $currentPlayer
+    Write-Host " Wecome to Tic Tac Toe, let' play!"
+     # Setze Spieler Eins als Startspieler
+    $gameOver = $false
+    while (-not $gameOver) {
+        $row = Read-Host "Player $currentPlayer, choose row (0-2)"
+        $col = Read-Host "Player $currentPlayer, choose column (0-2)"
+        Insert-Tile $row $col
+        Show-Board
+        Switch-Player
+    }
+}
+     
+ 
  
 Clear-Host
 Run-Game -board $board -startingPlayer $playerOneSymbol
-
