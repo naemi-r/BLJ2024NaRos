@@ -37,11 +37,11 @@ Get-ChildItem -Path $path -Recurse -File |
     }
 
 #Benenne den Ordner SubFolder1 in EvenFilesContainer und SubFolder2 in OddFilesContainer um.
-Rename-Item -Path "C:\Users\naemi\BLJ2024NaRos\PowerShell\2024\KW-10\Task5\TestingPurpose\SubFolder1" -NewName "OddFilesContainer" -Force
+Rename-Item -Path "C:\Users\naemi\BLJ2024NaRos\PowerShell\2024\KW-10\Task5\TestingPurpose\SubFolder1" -NewName "FilesContainer" -Force
 Rename-Item -Path "C:\Users\naemi\BLJ2024NaRos\PowerShell\2024\KW-10\Task5\TestingPurpose\SubFolder2" -NewName "OddFilesContainer" -Force
 
 # Erstellen Sie eine Liste aller Dateien, die sich derzeit im Ordner TestingPurpose befinden.
-
+Get-ChildItem -Path $path -Recurse -File | Select-Object @{Name="Date"; Expression={$_.LastWriteTime.ToString("yyyyMMdd")}}, Name
 #      Beispiel: MasterFile.txt:
 # 		Ab JJJJMMTT HH: MM befinden sich folgende Dateien in TestingPurpose:
 # 		C:\TestingPurpose\EvenFilesContainer\TypeBTest2.txt
@@ -50,4 +50,4 @@ Rename-Item -Path "C:\Users\naemi\BLJ2024NaRos\PowerShell\2024\KW-10\Task5\Testi
 # 		C:\TestingPurpose\OddFilesContainer\TypeATest99.txt
 
 # Löschen Sie alle Dateien, die mit TypeA beginnen
-#Remove-Item -Path ".\TestingPurpose\EvenFilesContainer\TypeA*.txt" -Force
+Remove-Item -Path "C:\Users\naemi\BLJ2024NaRos\PowerShell\2024\KW-10\Task5\TestingPurpose\FilesContainer\TypeA*.txt" -Confirm
