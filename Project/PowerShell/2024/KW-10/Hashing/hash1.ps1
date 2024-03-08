@@ -1,38 +1,35 @@
-# Pfad zur vorhandenen Excel-Datei angeben
-$excelDatei = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-10\Hashing\paswoerter.xlsx"
+$user = Read-Host "1 for Sign up"
 
-# Benutzereingabe für Daten
-$csvString = Read-Host "Geben Sie die Daten im CSV-Format ein (z.B. Name,Alter,Stadt;Name2,Alter2,Stadt2):"
+if ($user -eq 1) {
+    $createusername = Read-Host "Create username"
+    $createPassword = Read-Host "Create password"
+    
+    # Erstelle einen MemoryStream aus dem Passwort
+    $mystream = [IO.MemoryStream]::new([System.Text.Encoding]::UTF8.GetBytes($createPassword))
+    
+    # Berechne den Hash des Passworts
+    $hash = Get-FileHash -InputStream $mystream -Algorithm SHA256
+    
+    Write-Host "Account created for user: $createusername with password hash: $($hash.Hash)"
+    
+    # Existing CSV file path
+    $csvFilePath = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-10\Hashing\DB.csv"
+    
+    # New data to append
+    $newRow = [PSCustomObject]@{user=$createusername; hash=$hash.Hash;} # Änderung hier
+    
+    # Import existing data
+    $existingData = Import-Csv -Path $csvFilePath
+    
+    # Add the new row to the existing data
+    $existingData += $newRow
+    
+    # Export the updated data back to the CSV file
+    $existingData | Export-Csv -Path $csvFilePath -NoTypeInformation
 
-# Excel-Anwendung starten
-$excel = New-Object -ComObject Excel.Application
-$excel.Visible = $false
-
-# Arbeitsmappe öffnen
-$arbeitsmappe = $excel.Workbooks.Open($excelDatei)
-
-# Arbeitsblatt auswählen (hier wird das erste Blatt verwendet)
-$arbeitsblatt = $arbeitsmappe.Worksheets.Item(1)
-
-# PowerShell-Objekt aus dem CSV-String erstellen
-$csvObjekt = $csvString | ConvertFrom-Csv -Delimiter ','
-
-# Zeile, ab der Daten eingefügt werden sollen (hier wird die nächste leere Zeile verwendet)
-$zeile = $arbeitsblatt.UsedRange.Rows.Count + 1
-
-# Daten in Excel-Tabelle einfügen
-foreach ($eintrag in $csvObjekt) {
-    $spalte = 1
-    foreach ($feld in $eintrag.PSObject.Properties) {
-        $arbeitsblatt.Cells.Item($zeile, $spalte) = $feld.Value
-        $spalte++
-    }
-    $zeile++
+} else {
+    $username = Read-Host "Error"
+    
+    # Hier würden Sie den Passworthash des eingegebenen Passworts mit dem gespeicherten Hash vergleichen
+    # und entsprechende Aktionen durchführen.
 }
-
-# Excel-Datei speichern
-$arbeitsmappe.Save()
-
-# Excel-Anwendung beenden
-$excel.Quit()
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($excel) | Out-Null

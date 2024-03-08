@@ -1,32 +1,40 @@
-# Pfad zur vorhandenen Excel-Datei angeben
-$excelDatei = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-10\Hashing\paswoerter.xlsx"
+# Pfad zur vorhandenen Excel-Datei
+$excelDatei = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-10\Hashing\soso.xlsx"
 
-# Benutzereingabe für den Namen
-$benutzerName = Read-Host "Geben Sie einen Namen ein"
-$benutzerPasswort = Read-Host "Geben sie ein Passwort ein"
+# Strings, die exportiert werden sollen (hier als Beispiel)
+$strings = "String1", "String2", "String3"
 
-# Excel-Anwendung starten
+# Erstellt eine Excel-Anwendung
 $excel = New-Object -ComObject Excel.Application
-$excel.Visible = $false
 
-# Arbeitsmappe öffnen
-$arbeitsmappe = $excel.Workbooks.Open($excelDatei)
+# Excel-Tabelle öffnen oder erstellen
+if (Test-Path $excelDatei) {
+    $workbook = $excel.Workbooks.Open($excelDatei, 0, $true)  # Der dritte Parameter ($true) öffnet das Workbook im schreibgeschützten Modus
+} else {
+    $workbook = $excel.Workbooks.Add()
+}
 
-# Aktives Arbeitsblatt auswählen
-$arbeitsblatt = $arbeitsmappe.ActiveSheet
+# Arbeitsblatt auswählen (hier als Beispiel das erste Blatt)
+$worksheet = $workbook.Worksheets.Item(1)
 
-# Zeile, ab der Daten eingefügt werden sollen (hier wird die nächste leere Zeile verwendet)
-$zeile = $arbeitsblatt.UsedRange.Rows.Count + 1
+# Zähler für die Zeile
+$row = $worksheet.UsedRange.Rows.Count + 1
 
-# Daten in Excel-Tabelle einfügen
-$arbeitsblatt.Cells.Item($zeile, 1) = $benutzerName
-$arbeitsblatt.Cells.Item($zeile, 1) = $benutzerPasswort
+# Neue Strings in neue Zeilen einfügen
+foreach ($string in $strings) {
+    # String in die Zelle schreiben
+    $worksheet.Cells.Item($row, 1) = $string
 
-# Excel-Datei speichern
-$arbeitsmappe.Save()
+    # Zähler für die Zeile erhöhen
+    $row++
+}
 
-# Excel-Anwendung beenden
-$arbeitsmappe.Close()
+# Excel-Tabelle speichern und schließen
+$workbook.SaveAs($excelDatei)
+$workbook.Close()
 $excel.Quit()
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($arbeitsmappe) | Out-Null
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($excel) | Out-Null
+
+# Aufräumen der COM-Objekte
+[System.Runtime.Interopservices.Marshal]::ReleaseComObject($worksheet)
+[System.Runtime.Interopservices.Marshal]::ReleaseComObject($workbook)
+[System.Runtime.Interopservices.Marshal]::ReleaseComObject($excel)
