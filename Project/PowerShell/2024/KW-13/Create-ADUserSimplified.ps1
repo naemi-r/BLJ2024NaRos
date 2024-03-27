@@ -22,11 +22,11 @@ $form.Controls.Add($labelFirstName)  # Fügen Sie das Label für den Vornamen zu
 $textBoxFirstName = New-Object System.Windows.Forms.TextBox
 $textBoxFirstName.Location = New-Object System.Drawing.Point(120, 40)
 $textBoxFirstName.Size = New-Object System.Drawing.Size(200, 20)
-$textBoxfirstname.Text = ""
+$textBoxFirstName.Text = ""
 $form.Controls.Add($textBoxFirstName)  # Fügen Sie das Textfeld für den Vornamen zum Formular hinzu
 
 # Ereignishandler für Textänderungen im Vornamefeld
-$textBoxfirstname.add_TextChanged({
+$textBoxFirstName.add_TextChanged({
     UpdateEmail
     UpdateUsername
 })
@@ -40,11 +40,11 @@ $form.Controls.Add($labelLastName)  # Fügen Sie das Label für den Nachnamen zu
 $textBoxLastName = New-Object System.Windows.Forms.TextBox
 $textBoxLastName.Location = New-Object System.Drawing.Point(120, 70)
 $textBoxLastName.Size = New-Object System.Drawing.Size(200, 20)
-$textBoxlastname.Text = ""
+$textBoxLastName.Text = ""
 $form.Controls.Add($textBoxLastName)  # Fügen Sie das Textfeld für den Nachnamen zum Formular hinzu
 
 # Ereignishandler für Textänderungen im Nachnamefeld
-$textBoxlastname.add_TextChanged({
+$textBoxLastName.add_TextChanged({
     UpdateEmail
     UpdateUsername
 })
@@ -57,7 +57,12 @@ $form.Controls.Add($labelDescription)  # Fügen Sie das Label für den Descripti
 $textBoxDescription = New-Object System.Windows.Forms.TextBox
 $textBoxDescription.Location = New-Object System.Drawing.Point(120, 100)
 $textBoxDescription.Size = New-Object System.Drawing.Size(200, 20)
+$labeldescription.Text = ""
 $form.Controls.Add($textBoxDescription)  # Fügen Sie das Textfeld für den Description zum Formular hinzu
+$textBoxLastName.add_TextChanged({
+    UpdateEmail
+    UpdateUsername
+})
 
 $labelOffice = New-Object System.Windows.Forms.Label
 $labelOffice.Text = "Office:"
@@ -118,8 +123,16 @@ $textBoxPlace = New-Object System.Windows.Forms.TextBox
 $textBoxPlace.Location = New-Object System.Drawing.Point(120, 280)
 $textBoxPlace.Size = New-Object System.Drawing.Size(200, 20)
 $form.Controls.Add($textBoxPlace)  # Fügen Sie das Textfeld für den Wohnort zum Formular hinzu
-# Funktion zur Aktualisierung der E-Mail-Adresse
 
+# Funktion zur Aktualisierung der E-Mail-Adresse
+function UpdateEmail {
+    $textBoxEMail.Text = $textBoxFirstName.Text + "." + $textBoxLastName.Text + "@noseryoung.com"
+}
+
+# Funktion zur Aktualisierung des Benutzernamens
+function UpdateUsername {
+    $textBoxUsername.Text = $textBoxFirstName.Text + "." + $textBoxLastName.Text
+}
 
 # Label und Textfeld für die E-Mail-Adresse
 $labelEMail = New-Object System.Windows.Forms.Label
@@ -130,9 +143,9 @@ $form.Controls.Add($labelEMail)  # Fügen Sie das Label für den E-Mail zum Form
 $textBoxEMail = New-Object System.Windows.Forms.TextBox
 $textBoxEMail.Location = New-Object System.Drawing.Point(120, 310)
 $textBoxEMail.Size = New-Object System.Drawing.Size(200, 20)
-$textBoxemail.Text = $textBoxfirstname.Text + "." + $textBoxlastname.Text + "@noseryoung.com"
 $form.Controls.Add($textBoxEMail)  # Fügen Sie das Textfeld für den E-Mail zum Formular hinzu
 
+# Label und Textfeld für den Benutzernamen
 $labelUsername = New-Object System.Windows.Forms.Label
 $labelUsername.Text = "Benutzername:"
 $labelUsername.Location = New-Object System.Drawing.Point(20, 340)
@@ -141,34 +154,53 @@ $form.Controls.Add($labelUsername)  # Fügen Sie das Label für den Benutzername
 $textBoxUsername = New-Object System.Windows.Forms.TextBox
 $textBoxUsername.Location = New-Object System.Drawing.Point(120, 340)
 $textBoxUsername.Size = New-Object System.Drawing.Size(200, 20)
-$textBoxUsername.Text = $textBoxfirstname.Text + "." + $textBoxlastname.Text
 $form.Controls.Add($textBoxUsername)  # Fügen Sie das Textfeld für den Benutzername zum Formular hinzu
+
+$labelPath = New-Object System.Windows.Forms.Label
+$labelPath.Text = "Pfad:"
+$labelPath.Location = New-Object System.Drawing.Point(20, 370)
+$form.Controls.Add($labelPlace)  # Fügen Sie das Label für den Wohnort zum Formular hinzu
+
+$textBoxPath = New-Object System.Windows.Forms.TextBox
+$textBoxPath.Location = New-Object System.Drawing.Point(120, 370)
+$textBoxPath.Size = New-Object System.Drawing.Size(200, 20)
+$form.Controls.Add($textBoxPath)  # Fügen Sie das Textfeld für den Wohnort zum Formular hinzu
 
 # Erstellen Sie einen Button
 $button = New-Object System.Windows.Forms.Button
 $button.Text = "Create"
-$button.Location = New-Object System.Drawing.Point(20, 380)
+$button.Location = New-Object System.Drawing.Point(20, 400)
 $form.Controls.Add($button)
-
-$button.Add_Click({en
-    [System.Windows.Forms.MessageBox]::Show("User is created!")
-})
-
-$button = New-Object System.Windows.Forms.Button
-$button.Text = "Cancel"
-$button.Location = New-Object System.Drawing.Point(110, 380)
-
-$form.Controls.Add($button)
-
-function Cancel-Program {
-    $form.Close()
-}
 
 $button.Add_Click({
-    Cancel-Program
+    # Existing CSV file path
+    $csvFilePath = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-13\Users.csv"
+    
+    # New data to append
+    $newRow = [PSCustomObject]@{
+        Vorname = $textBoxFirstName.Text
+        Nachname = $textBoxLastName.Text
+        Beschreibung = $labeldescription.Text
+        EMail = $textBoxEMail.Text
+        Benutzername = $textBoxUsername.Text
+    }
+    
+    # Export the new row to the CSV file
+    $newRow | Export-Csv -Path $csvFilePath -NoTypeInformation -Append
+
+    # Close the form
+    $form.Close()
 })
 
+# Erstellen Sie einen Cancel-Button
+$buttonCancel = New-Object System.Windows.Forms.Button
+$buttonCancel.Text = "Cancel"
+$buttonCancel.Location = New-Object System.Drawing.Point(110, 400)
+$form.Controls.Add($buttonCancel)
 
+$buttonCancel.Add_Click({
+    # Close the form
+    $form.Close()
+})
 
-# Anzeigen des Formulars
 $form.ShowDialog() | Out-Null
