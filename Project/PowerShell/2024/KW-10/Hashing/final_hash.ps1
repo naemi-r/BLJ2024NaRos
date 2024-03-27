@@ -1,4 +1,3 @@
-# Function to hash password
 function Hash-Password {
     param([string]$password)
     $hashBytes = [System.Text.Encoding]::UTF8.GetBytes($password)
@@ -6,7 +5,6 @@ function Hash-Password {
     return $hash.Hash
 }
 
-# Function to sign up a new user
 function New-User {
     param(
         [string]$username,
@@ -28,7 +26,6 @@ function New-User {
     }
 }
 
-# Function to authenticate user
 function Authenticate-User {
     param(
         [string]$username,
@@ -56,20 +53,18 @@ function Authenticate-User {
     }
 }
 
-# Function for user login
 function Login-User {
-    $username = Read-Host "Enter your username:"
-    $password = Read-Host "Enter your password:" -AsSecureString
+    $username = Read-Host "Enter your username"
+    $password = Read-Host "Enter your password" -AsSecureString
     $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
     Authenticate-User -username $username -password $password
 }
 
-# Prompt user for action
 $action = Read-Host "Would you like to (1) Sign Up or (2) Login?"
 
 if ($action -eq "1") {
-    $username = Read-Host "Enter a username:"
-    $password = Read-Host "Enter a password:" -AsSecureString
+    $username = Read-Host "Enter a username"
+    $password = Read-Host "Enter a password" -AsSecureString
     $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
     New-User -username $username -password $password
 } elseif ($action -eq "2") {
