@@ -3,7 +3,7 @@ Add-Type -AssemblyName System.Windows.Forms
 # Erstellen Sie ein neues Formularobjekt
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "ADUserSimplified"
-$form.Size = New-Object System.Drawing.Size(800, 400) # Setzen Sie die Größe des Formulars
+$form.Size = New-Object System.Drawing.Size(800, 500) # Setzen Sie die Größe des Formulars
 
 # Erstellen Sie ein Labelobjekt
 $label = New-Object System.Windows.Forms.Label
@@ -143,6 +143,30 @@ $textBoxUsername.Location = New-Object System.Drawing.Point(120, 340)
 $textBoxUsername.Size = New-Object System.Drawing.Size(200, 20)
 $textBoxUsername.Text = $textBoxfirstname.Text + "." + $textBoxlastname.Text
 $form.Controls.Add($textBoxUsername)  # Fügen Sie das Textfeld für den Benutzername zum Formular hinzu
+
+# Erstellen Sie einen Button
+$button = New-Object System.Windows.Forms.Button
+$button.Text = "Create"
+$button.Location = New-Object System.Drawing.Point(20, 380)
+$form.Controls.Add($button)
+
+$button.Add_Click({en
+    [System.Windows.Forms.MessageBox]::Show("User is created!")
+})
+
+$button = New-Object System.Windows.Forms.Button
+$button.Text = "Cancel"
+$button.Location = New-Object System.Drawing.Point(110, 380)
+
+$form.Controls.Add($button)
+
+function Cancel-Program {
+    $form.Close()
+}
+
+$button.Add_Click({
+    Cancel-Program
+})
 
 
 
