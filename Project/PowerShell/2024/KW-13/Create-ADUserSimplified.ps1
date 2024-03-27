@@ -22,11 +22,13 @@ $form.Controls.Add($labelFirstName)  # Fügen Sie das Label für den Vornamen zu
 $textBoxFirstName = New-Object System.Windows.Forms.TextBox
 $textBoxFirstName.Location = New-Object System.Drawing.Point(120, 40)
 $textBoxFirstName.Size = New-Object System.Drawing.Size(200, 20)
-$textBoxFirstName.Text = "firstname"  # korrigierter Schreibfehler
+$textBoxfirstname.Text = ""
 $form.Controls.Add($textBoxFirstName)  # Fügen Sie das Textfeld für den Vornamen zum Formular hinzu
 
-$textBoxFirstName.add_TextChanged({
+# Ereignishandler für Textänderungen im Vornamefeld
+$textBoxfirstname.add_TextChanged({
     UpdateEmail
+    UpdateUsername
 })
 
 # Label und Textfeld für den Nachnamen
@@ -38,11 +40,13 @@ $form.Controls.Add($labelLastName)  # Fügen Sie das Label für den Nachnamen zu
 $textBoxLastName = New-Object System.Windows.Forms.TextBox
 $textBoxLastName.Location = New-Object System.Drawing.Point(120, 70)
 $textBoxLastName.Size = New-Object System.Drawing.Size(200, 20)
-$textBoxLastName.Text = "lastname"  # korrigierter Schreibfehler
+$textBoxlastname.Text = ""
 $form.Controls.Add($textBoxLastName)  # Fügen Sie das Textfeld für den Nachnamen zum Formular hinzu
 
-$textBoxLastName.add_TextChanged({
+# Ereignishandler für Textänderungen im Nachnamefeld
+$textBoxlastname.add_TextChanged({
     UpdateEmail
+    UpdateUsername
 })
 
 $labelDescription = New-Object System.Windows.Forms.Label
@@ -114,26 +118,19 @@ $textBoxPlace = New-Object System.Windows.Forms.TextBox
 $textBoxPlace.Location = New-Object System.Drawing.Point(120, 280)
 $textBoxPlace.Size = New-Object System.Drawing.Size(200, 20)
 $form.Controls.Add($textBoxPlace)  # Fügen Sie das Textfeld für den Wohnort zum Formular hinzu
-
-# Ereignishandler für Textänderungen in Vor- und Nachnamenfeldern
-
-
-
-
 # Funktion zur Aktualisierung der E-Mail-Adresse
-function UpdateEmail {
-    $textBoxEMail.Text = $textBoxfirstname.Text + "." + $textBoxlastname.Text + "@noseryoung.com"
-}
+
 
 # Label und Textfeld für die E-Mail-Adresse
 $labelEMail = New-Object System.Windows.Forms.Label
 $labelEMail.Text = "E-Mail:"
-$labelEMail.Location = New-Object System.Drawing.Point(20, 100)
+$labelEMail.Location = New-Object System.Drawing.Point(20, 310)
 $form.Controls.Add($labelEMail)  # Fügen Sie das Label für den E-Mail zum Formular hinzu
 
 $textBoxEMail = New-Object System.Windows.Forms.TextBox
-$textBoxEMail.Location = New-Object System.Drawing.Point(120, 100)
+$textBoxEMail.Location = New-Object System.Drawing.Point(120, 310)
 $textBoxEMail.Size = New-Object System.Drawing.Size(200, 20)
+$textBoxemail.Text = $textBoxfirstname.Text + "." + $textBoxlastname.Text + "@noseryoung.com"
 $form.Controls.Add($textBoxEMail)  # Fügen Sie das Textfeld für den E-Mail zum Formular hinzu
 
 $labelUsername = New-Object System.Windows.Forms.Label
@@ -144,6 +141,7 @@ $form.Controls.Add($labelUsername)  # Fügen Sie das Label für den Benutzername
 $textBoxUsername = New-Object System.Windows.Forms.TextBox
 $textBoxUsername.Location = New-Object System.Drawing.Point(120, 340)
 $textBoxUsername.Size = New-Object System.Drawing.Size(200, 20)
+$textBoxUsername.Text = $textBoxfirstname.Text + "." + $textBoxlastname.Text
 $form.Controls.Add($textBoxUsername)  # Fügen Sie das Textfeld für den Benutzername zum Formular hinzu
 
 
