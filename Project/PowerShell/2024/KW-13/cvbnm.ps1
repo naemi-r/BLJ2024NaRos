@@ -1,4 +1,3 @@
-
 function Get-RandomPassword {
     $length = 10
     $validChars = 'abcdefghkmnpqrstuvwxyzABCDEFGHKMNPQRSTUVWXYZ23456789!@$?_'
@@ -157,20 +156,29 @@ $button.Text = "Create"
 $button.Location = New-Object System.Drawing.Point(20, 380)
 $form.Controls.Add($button)
 
-# Funktion zur Generierung eines zufälligen Passworts
-
-
 $button.Add_Click({
     $csvFilePath = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-13\Users.csv"
 
-    $newRow = [PSCustomObject]@{Vorname=$textBoxfirstname.Text; Nachname=$textBoxlastname.Text; EMail=$textBoxemail.Text; Benutzername=$textBoxUsername.Text; Passwort = $randomPassword}
+    $randomPassword = Get-RandomPassword
 
-    $existingData = Import-Csv -Path $csvFilePath
+    $newRow = [PSCustomObject]@{
+        Vorname=$textBoxfirstname.Text
+        Nachname=$textBoxlastname.Text
+        EMail=$textBoxemail.Text
+        Benutzername=$textBoxUsername.Text
+        Passwort = $randomPassword 
+    }
 
-    $newData = $existingData + $newRow
-    
-    # Exportieren der aktualisierten Daten zurück in die CSV-Datei
-    $newData | Export-Csv -Path $csvFilePath -NoTypeInformation
+    if (!(Test-Path $csvFilePath)) {
+        # Wenn die CSV-Datei nicht vorhanden ist, erstellen Sie sie mit der Kopfzeile
+        $header = "Vorname,Nachname,EMail,Benutzername,Passwort"
+        $header | Out-File -FilePath $csvFilePath -Encoding utf8
+    }
+
+    # Fügen Sie die neue Zeile der CSV-Datei hinzu
+    $newRow | Export-Csv -Path $csvFilePath -NoTypeInformation -Append
+
+    [System.Windows.Forms.MessageBox]::Show("Benutzer erfolgreich hinzugefügt.", "Information", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
 
     Cancel-Program
 })
