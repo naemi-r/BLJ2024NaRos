@@ -1,3 +1,15 @@
+
+function Get-RandomPassword {
+    $length = 10
+    $validChars = 'abcdefghkmnpqrstuvwxyzABCDEFGHKMNPQRSTUVWXYZ23456789!@$?_'
+    $random = 1..$length | ForEach-Object { Get-Random -Maximum $validChars.Length }
+    $randomPassword = -join ($random | ForEach-Object { $validChars[$_] })
+    return $randomPassword
+}
+
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "ADUserSimplified"
+$form.Size = New-Object System.Drawing.Size(800, 500)
 Add-Type -AssemblyName System.Windows.Forms
 
 $form = New-Object System.Windows.Forms.Form
@@ -145,10 +157,13 @@ $button.Text = "Create"
 $button.Location = New-Object System.Drawing.Point(20, 380)
 $form.Controls.Add($button)
 
+# Funktion zur Generierung eines zufälligen Passworts
+
+
 $button.Add_Click({
     $csvFilePath = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-13\Users.csv"
 
-    $newRow = [PSCustomObject]@{Vorname=$textBoxfirstname.Text; Nachname=$textBoxlastname.Text}
+    $newRow = [PSCustomObject]@{Vorname=$textBoxfirstname.Text; Nachname=$textBoxlastname.Text; EMail=$textBoxemail.Text; Benutzername=$textBoxUsername.Text; Passwort = $randomPassword}
 
     $existingData = Import-Csv -Path $csvFilePath
 
@@ -168,4 +183,38 @@ $form.Controls.Add($button)
 $button.Add_Click({
     Cancel-Program
 })
+
+
+$labelPath = New-Object System.Windows.Forms.Label
+$labelPath.Text = "Pfad zur CSV-Datei:"
+$labelPath.Location = New-Object System.Drawing.Point(20, 410)
+$form.Controls.Add($labelPath)
+
+$textBoxPath = New-Object System.Windows.Forms.TextBox
+$textBoxPath.Location = New-Object System.Drawing.Point(150, 410)
+$textBoxPath.Size = New-Object System.Drawing.Size(200, 20)
+$form.Controls.Add($textBoxPath)
+
+$buttonReadCSV = New-Object System.Windows.Forms.Button
+$buttonReadCSV.Text = "CSV lesen"
+$buttonReadCSV.Location = New-Object System.Drawing.Point(20, 440)
+$form.Controls.Add($buttonReadCSV)
+
+$buttonReadCSV.Add_Click({
+    $csvPath = $textBoxPath.Text
+    if (Test-Path -Path $csvPath -PathType Leaf) {
+        try {
+            $csvData = Import-Csv -Path $csvPath
+            [System.Windows.Forms.MessageBox]::Show("CSV erfolgreich eingelesen.", "Information", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+            # Hier können Sie weitere Verarbeitungsschritte für die CSV-Daten einfügen
+        } catch {
+            [System.Windows.Forms.MessageBox]::Show("Fehler beim Einlesen der CSV-Datei.", "Fehler", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+        }
+    } else {
+        [System.Windows.Forms.MessageBox]::Show("Die angegebene Datei existiert nicht.", "Fehler", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+    }
+})
+
+
+
 $form.ShowDialog() | Out-Null

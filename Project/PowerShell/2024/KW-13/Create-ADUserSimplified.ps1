@@ -26,7 +26,8 @@ $textBoxFirstName.Text = ""
 $form.Controls.Add($textBoxFirstName)  # Fügen Sie das Textfeld für den Vornamen zum Formular hinzu
 
 # Ereignishandler für Textänderungen im Vornamefeld
-$textBoxFirstName.add_TextChanged({
+$textBoxFirstName.add_TextChanged
+({
     UpdateEmail
     UpdateUsername
 })
@@ -44,7 +45,8 @@ $textBoxLastName.Text = ""
 $form.Controls.Add($textBoxLastName)  # Fügen Sie das Textfeld für den Nachnamen zum Formular hinzu
 
 # Ereignishandler für Textänderungen im Nachnamefeld
-$textBoxLastName.add_TextChanged({
+$textBoxLastName.add_TextChanged
+({
     UpdateEmail
     UpdateUsername
 })
@@ -57,9 +59,10 @@ $form.Controls.Add($labelDescription)  # Fügen Sie das Label für den Descripti
 $textBoxDescription = New-Object System.Windows.Forms.TextBox
 $textBoxDescription.Location = New-Object System.Drawing.Point(120, 100)
 $textBoxDescription.Size = New-Object System.Drawing.Size(200, 20)
-$labeldescription.Text = ""
+$labelDescription.Text = ""
 $form.Controls.Add($textBoxDescription)  # Fügen Sie das Textfeld für den Description zum Formular hinzu
-$textBoxLastName.add_TextChanged({
+$textBoxDescription.add_TextChanged
+({
     UpdateEmail
     UpdateUsername
 })
@@ -125,12 +128,14 @@ $textBoxPlace.Size = New-Object System.Drawing.Size(200, 20)
 $form.Controls.Add($textBoxPlace)  # Fügen Sie das Textfeld für den Wohnort zum Formular hinzu
 
 # Funktion zur Aktualisierung der E-Mail-Adresse
-function UpdateEmail {
+function UpdateEmail
+{
     $textBoxEMail.Text = $textBoxFirstName.Text + "." + $textBoxLastName.Text + "@noseryoung.com"
 }
 
 # Funktion zur Aktualisierung des Benutzernamens
-function UpdateUsername {
+function UpdateUsername
+{
     $textBoxUsername.Text = $textBoxFirstName.Text + "." + $textBoxLastName.Text
 }
 
@@ -159,12 +164,63 @@ $form.Controls.Add($textBoxUsername)  # Fügen Sie das Textfeld für den Benutze
 $labelPath = New-Object System.Windows.Forms.Label
 $labelPath.Text = "Pfad:"
 $labelPath.Location = New-Object System.Drawing.Point(20, 370)
-$form.Controls.Add($labelPlace)  # Fügen Sie das Label für den Wohnort zum Formular hinzu
+$form.Controls.Add($labelPath)  # Fügen Sie das Label für den Wohnort zum Formular hinzu
 
 $textBoxPath = New-Object System.Windows.Forms.TextBox
 $textBoxPath.Location = New-Object System.Drawing.Point(120, 370)
 $textBoxPath.Size = New-Object System.Drawing.Size(200, 20)
+$textBoxPath.Text = ""
 $form.Controls.Add($textBoxPath)  # Fügen Sie das Textfeld für den Wohnort zum Formular hinzu
+
+# Funktion zum Überprüfen des Pfads und Lesen der CSV-Datei
+function Read-CSVFile
+{
+    param
+    (
+        [string]$Path
+    )
+    
+    if (Test-Path $Path -PathType Leaf)
+    {
+        try
+        {
+            $csvContent = Import-Csv -Path $Path
+            # Hier können Sie mit $csvContent weiterarbeiten, z. B. Daten anzeigen
+            Write-Host "CSV-Datei erfolgreich eingelesen."
+            return $csvContent
+        }
+        catch
+        {
+            Write-Host "Fehler beim Lesen der CSV-Datei: $_" -ForegroundColor Red
+            return $null
+        }
+    }
+    else
+    {
+        Write-Host "Der angegebene Pfad ist ungültig oder die Datei existiert nicht." -ForegroundColor Yellow
+        return $null
+    }
+}
+
+# Event Handler für eine Aktion, die den Pfad überprüft und die CSV-Datei liest
+$textBoxPath.Add_TextChanged
+({
+    $path = $textBoxPath.Text
+    if ($path -ne "")
+    {
+        $csvData = Read-CSVFile -Path $path
+        # Hier können Sie mit den Daten weiterarbeiten, z. B. Anzeigen in einem DataGridView
+    }
+})
+
+# Beispiel für das Hinzufügen einer DataGridView zur Anzeige der CSV-Daten
+$dataGridView = New-Object System.Windows.Forms.DataGridView
+$dataGridView.Location = New-Object System.Drawing.Point(20, 400)
+$dataGridView.Size = New-Object System.Drawing.Size(300, 150)
+$form.Controls.Add($dataGridView)
+
+# Anzeige des Formulars
+$form.ShowDialog()
 
 # Erstellen Sie einen Button
 $button = New-Object System.Windows.Forms.Button
@@ -172,12 +228,14 @@ $button.Text = "Create"
 $button.Location = New-Object System.Drawing.Point(20, 400)
 $form.Controls.Add($button)
 
-$button.Add_Click({
+$button.Add_Click
+({
     # Existing CSV file path
     $csvFilePath = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-13\Users.csv"
     
     # New data to append
-    $newRow = [PSCustomObject]@{
+    $newRow = [PSCustomObject]
+    @{
         Vorname = $textBoxFirstName.Text
         Nachname = $textBoxLastName.Text
         Beschreibung = $labeldescription.Text
@@ -198,7 +256,8 @@ $buttonCancel.Text = "Cancel"
 $buttonCancel.Location = New-Object System.Drawing.Point(110, 400)
 $form.Controls.Add($buttonCancel)
 
-$buttonCancel.Add_Click({
+$buttonCancel.Add_Click
+({
     # Close the form
     $form.Close()
 })
