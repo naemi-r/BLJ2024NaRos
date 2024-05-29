@@ -157,7 +157,7 @@ $button.Location = New-Object System.Drawing.Point(20, 380)
 $form.Controls.Add($button)
 
 $button.Add_Click({
-    $csvFilePath = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-13\Users.csv"
+    $csvFilePath = "C:\Users\naemi\BLJ2024NaRos\Project\PowerShell\2024\KW-13\346.csv"
 
     $randomPassword = Get-RandomPassword
 
@@ -176,9 +176,9 @@ $button.Add_Click({
     }
 
     # Fügen Sie die neue Zeile der CSV-Datei hinzu
-    $newRow | Export-Csv -Path $csvFilePath -NoTypeInformation -Append
+    $newRow | Export-Csv -Path $csvFilePath -NoTypeInformation -Append -Force
 
-    [System.Windows.Forms.MessageBox]::Show("Benutzer erfolgreich hinzugefügt.", "Information", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+    [System.Windows.Forms.MessageBox]::Show("Benutzer erfolgreich hinzugefuegt.", "Information", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
 
     Cancel-Program
 })
