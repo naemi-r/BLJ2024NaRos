@@ -13,5 +13,5 @@
 [Meine HTML Seite](https://github.com/naemi-r/BLJ2024NaRos/blob/main/Project/HTML/2024/KW-23/meine_Seite.html)
 
 ## 
-<img src="https://i.insider.com/60817ec5354dde0018c06960?width=700" alt="Berglandschaft" width="400" height="300">
+<img src="https://i.insider.com/60817ec5354dde0018c06960?width=700" alt="Shrek" width="800" height="600">
 
