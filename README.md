@@ -10,12 +10,10 @@
 * [Markdown](https://github.com/naemi-r/BLJ2024NaRos/tree/main/Project/Markdown)
 
 ## About me
-* I am Naemi
-* 16 years old
-* 1st year of apprenticeship at Kyndryl
-* Platform developer
-* Place of residence: Einsiedeln
-* Hobby: Reading, sport
+My name is Naemi and I am 16 years old. <br>
+I am currently in my first year of apprenticeship at Kyndryl, where I am training to become a platform developer.<br>
+I live in Einsiedeln, a beautiful place that I call home. In my free time, I enjoy reading and staying active through various sports. <br>
+These hobbies keep me balanced and energized as I pursue my career in technology.
 
 ## 
 <img src="https://i.insider.com/60817ec5354dde0018c06960?width=700" alt="Shrek" width="800" height="600">
