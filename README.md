@@ -1,6 +1,6 @@
-# Repoisory 2024
+# Repository 2024
 
-## Inhaltsverzeichnis
+## Table of contents
 * [Java](https://github.com/naemi-r/BLJ2024NaRos/tree/main/Project/Java/2024)
 * [HTML](https://github.com/naemi-r/BLJ2024NaRos/tree/main/Project/HTML/2024)
 * [PowerShell](https://github.com/naemi-r/BLJ2024NaRos/tree/main/Project/PowerShell/2024)
@@ -9,8 +9,8 @@
 * [VPN](https://github.com/naemi-r/BLJ2024NaRos/tree/main/Project/VPN)
 * [Markdown](https://github.com/naemi-r/BLJ2024NaRos/tree/main/Project/Markdown)
 
-## Über mich
-[Meine HTML Seite](https://github.com/naemi-r/BLJ2024NaRos/blob/main/Project/HTML/2024/KW-23/meine_Seite.html)
+## About me
+[My HTML page](https://github.com/naemi-r/BLJ2024NaRos/blob/main/Project/HTML/2024/KW-23/meine_Seite.html)
 
 ## 
 <img src="https://i.insider.com/60817ec5354dde0018c06960?width=700" alt="Shrek" width="800" height="600">
