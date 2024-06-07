@@ -10,4 +10,4 @@
 * [Markdown](https://github.com/naemi-r/BLJ2024NaRos/tree/main/Project/Markdown)
 
 ## Über mich
-[Meine HTML Seite]([C:/Users/naemi/BLJ2024NaRos/Project/HTML/2024/KW-23/meine_Seite.html](https://github.com/naemi-r/BLJ2024NaRos/blob/main/Project/HTML/2024/KW-23/meine_Seite.html))
+[Meine HTML Seite](https://github.com/naemi-r/BLJ2024NaRos/blob/main/Project/HTML/2024/KW-23/meine_Seite.html)
