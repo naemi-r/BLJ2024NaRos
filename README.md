@@ -10,7 +10,7 @@
 * [Markdown](https://github.com/naemi-r/BLJ2024NaRos/tree/main/Project/Markdown)
 
 ## About me
-[My HTML page](https://github.com/naemi-r/BLJ2024NaRos/blob/main/Project/HTML/2024/KW-23/meine_Seite.html)
+<img src="C:/Users/naemi/BLJ2024NaRos/Project/HTML/2024/KW-23/meine_Seite.html" alt="My HTML page" width="800" height="600">
 
 ## 
 <img src="https://i.insider.com/60817ec5354dde0018c06960?width=700" alt="Shrek" width="800" height="600">
