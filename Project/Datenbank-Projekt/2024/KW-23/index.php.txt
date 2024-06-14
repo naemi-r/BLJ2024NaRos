@@ -1,0 +1,30 @@
+<?php
+// Verbindung zur Datenbank herstellen (Beispiel mit PDO)
+$servername = "localhost"; // Dein MySQL-Servername
+$username = "admin"; // Dein MySQL-Benutzername
+$password = "123456789"; // Dein MySQL-Passwort
+$dbname = "test2"; // Der Name deiner MySQL-Datenbank
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // Verbindung auf UTF-8 setzen, um Probleme mit Sonderzeichen zu vermeiden
+    $conn->exec("set names utf8");
+    // Fehlerausgaben aktivieren
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Eingegebenen Namen aus dem Formular holen
+    $name = $_POST['name'];
+
+    // SQL-Statement vorbereiten
+    $stmt = $conn->prepare("INSERT INTO name (name) VALUES (:name)");
+    $stmt->bindParam(':name', $name);
+
+    // SQL-Statement ausführen
+    $stmt->execute();
+
+    echo "Name erfolgreich in die Datenbank eingefügt.";
+} catch(PDOException $e) {
+    echo "Fehler: " . $e->getMessage();
+}
+$conn = null;
+?>
